@@ -4,6 +4,10 @@
   "description": "用jsonp请求数据，只适用于GET",
   "author": ";",
   "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BozhongFE/bz-jsonp.git"
+  },
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "npm run build-prod && npm run build-prod-min && npm run build-doc",
