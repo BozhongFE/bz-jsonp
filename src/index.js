@@ -36,9 +36,34 @@ export default (url = '', data = {}, method = '__c', callback = function(){}) =>
   window[generatedFunction] = function(json) {
       callback(json);
       delete window[generatedFunction];
-      document.getElementsByTagName("head")[0].removeChild(jsonpScript);
+      document.getElementsByTagName("head")[0].removeChild(jsonpScript); 
   }
 
   jsonpScript.setAttribute("src", url + method + '=' + generatedFunction);
   document.getElementsByTagName("head")[0].appendChild(jsonpScript)
+
+  window.setTimeout(function () {
+    if (typeof window[generatedFunction] === "function") {
+      // replace success with null callback in case the request is just very latent.
+      window[generatedFunction] = function (json) {
+        try {
+          delete window[generatedFunction];
+        } catch (e) {}
+          window[generatedFunction] = null;
+      };
+ 
+      // call the error callback
+      alert("请求超时")
+ 
+      // set a longer timeout to safely clean up the unused callback.
+      window.setTimeout(function () {
+        if (typeof window[generatedFunction] === "function") {
+          try {
+            delete window[generatedFunction];
+          } catch (e) {}
+          window[generatedFunction] = null;
+        };
+      }, 20000);
+    };
+  }, 10000);
 };
