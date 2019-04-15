@@ -1,42 +1,61 @@
 # bz-jsonp
+[demo](https://bozhongfe.github.io/bz-jsonp/dist/demo) 通过jsonp获取数据
 
-用jsonp请求数据，只适用于GET
-
-# 使用方法
+## command
 
 ``` bash
-# 安装
-npm install
-
-# 启动开发环境 localhost:4000
 npm run dev
-
-# 自定义开发环境的地址和端口
-npm run dev -- --host 0.0.0.0 --port 4000
-
-# 单元测试，自动测试test目录所有*.spec.js文件(mocha + chai)
-npm run test
-
-# 打包成静态文件目录，默认dist目录
-npm run build
+npm run build 
+```
+打包模块到source/moekit
+```bash
+npm run build:moe
+```
+复制demo到source/moekit, demo在dev时生成
+```bash
+npm run demo 
+```
+按顺序执行 build build:moe demo
+```bash
+npm run build:all 
 ```
 
-# 参数
+## 使用
 
-url       `string`    接口链接，必填
+**npm**
+```js
+npm install https://github.com/BozhongFE/bz-jsonp;
 
-data      `object`    要传给接口的数据，可选，默认为{}
+import BzJsonp from 'bz-jsonp';
 
-method    `method`    回调函数名称，可选，默认为'__c'
+BzJsonp({
+  url: 'http://example.com/example.json',
+  params: {},
+}, (res) => {
+  console.log(res);
+})
+```
 
-callback  `function`  回调函数，必填
+**Require.js**
+```js
+require(['mode/bz-jsonp/x.x.x'], (BzJsonp) {
+  BzJsonp({
+    url: 'http://example.com/example.json',
+    params: {},
+  }, function(res) {
+    console.log(res);
+  })
+})
+```
 
-# 例子
+## 参数
 
-## 注意
+**BzJsonp(options, callback)**
 
-例子里面的js只允许使用浏览器端支持的js，所以不可以使用es6
+options   `object`    配置，必填
 
-## 全局事件
+* options.url `string` 请求的接口链接，必填
+* options.params `object` 请求时传递给接口的参数，选填
+* options.prefix `string` 回调函数名，默认__c，选填
 
-+ getScript 可以获取组件文件入口内容（只适用于本页面）
+callback  `function`  回调函数

@@ -1,1 +1,0 @@
-module.exports = ["index.md","test.md"]
