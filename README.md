@@ -1,5 +1,5 @@
 # bz-jsonp
-[demo](https://bozhongfe.github.io/bz-jsonp/demo) 通过jsonp获取数据
+<a href="https://bozhongfe.github.io/bz-jsonp/demo" target="_blank">demo</a> 通过jsonp获取数据
 
 ## command
 
