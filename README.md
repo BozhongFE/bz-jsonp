@@ -33,6 +33,8 @@ BzJsonp({
   params: {},
 }, (res) => {
   console.log(res);
+}, (err) => {
+  console.log(err);
 })
 ```
 
@@ -44,13 +46,15 @@ require(['mode/bz-jsonp/x.x.x'], (BzJsonp) {
     params: {},
   }, function(res) {
     console.log(res);
+  }, function(err) {
+    console.log(err);
   })
 })
 ```
 
 ## 参数
 
-**BzJsonp(options, callback)**
+**BzJsonp(options, callback, error)**
 
 options   `object`    配置，必填
 
@@ -59,3 +63,5 @@ options   `object`    配置，必填
 * options.prefix `string` 回调函数名，默认__c，选填
 
 callback  `function`  回调函数
+
+error     `function`  错误回调

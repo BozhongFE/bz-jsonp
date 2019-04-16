@@ -15,26 +15,51 @@
         prefix = _ref$prefix === void 0 ? '__c' : _ref$prefix;
 
     var callback = arguments.length > 1 ? arguments[1] : undefined;
-    if (!url) return console.warn('url无效');
-    var callbackName = "jsonp_".concat(Date.now());
-    var headEl = document.getElementsByTagName('head')[0];
-    var script = document.createElement('script');
-    var symbol = url.indexOf('?') !== -1 ? '&' : '?';
-    var scriptUrl = "".concat(url + symbol + prefix, "=").concat(callbackName);
-    var urlParams = [];
-    Object.keys(params).forEach(function (key) {
-      var item = "".concat(key, "=").concat(encodeURIComponent(params[key]));
-      urlParams.push(item);
-    });
-    if (urlParams.length > 0) scriptUrl += "&".concat(urlParams.join('&'));
-    script.src = scriptUrl;
-    headEl.appendChild(script);
+    var error = arguments.length > 2 ? arguments[2] : undefined;
 
-    window[callbackName] = function (json) {
-      typeof callback === 'function' && callback(json);
-      headEl.removeChild(script);
-      window[callbackName] = null;
-    };
+    try {
+      if (!url) return error && error('url无效');
+      var callbackName = "jsonp_".concat(Date.now());
+      var headEl = document.getElementsByTagName('head')[0];
+      var script = document.createElement('script');
+      var symbol = url.indexOf('?') !== -1 ? '&' : '?';
+      var scriptUrl = "".concat(url + symbol + prefix, "=").concat(callbackName);
+      var timeoutFn = null; // 报错
+
+      var onError = function onError(err) {
+        window[callbackName] = null;
+        window.clearTimeout(timeoutFn);
+        return error && error(err) || console.error(err);
+      }; // 拼接请求参数
+
+
+      var urlParams = [];
+      Object.keys(params).forEach(function (key) {
+        var item = "".concat(key, "=").concat(encodeURIComponent(params[key]));
+        urlParams.push(item);
+      });
+      if (urlParams.length > 0) scriptUrl += "&".concat(urlParams.join('&'));
+
+      script.onerror = function () {
+        return onError('资源请求失败');
+      };
+
+      script.src = scriptUrl;
+      headEl.appendChild(script); // 脚本报错不便捕抓，用超时判断
+
+      timeoutFn = setTimeout(function () {
+        return onError('请求超时或失败');
+      }, 10000);
+
+      window[callbackName] = function (json) {
+        window.clearTimeout(timeoutFn);
+        typeof callback === 'function' && callback(json);
+        headEl.removeChild(script);
+        window[callbackName] = null;
+      };
+    } catch (err) {
+      return error && error(err);
+    }
   });
 
   exports.default = main;

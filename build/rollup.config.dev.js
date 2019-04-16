@@ -54,7 +54,7 @@ export default [
         openPage: '/demo/',
       }),
       livereload({
-        watch: ['./demo/'],
+        watch: ['./dist/', './demo/'],
       }),
       babel({
         babelrc: false,

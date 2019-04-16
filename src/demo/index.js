@@ -20,13 +20,15 @@ const opts = {
       ...
     }) \n
     \n
-    <span class="tips">// 使用 BzJsonp(options, callback);</span> \n
+    <span class="tips">// 使用 BzJsonp(options, callback, error);</span> \n
     BzJsonp({ \n
       url: 'http://example.com/example.json', <span class="tips">// 请求的接口链接，必填</span>\n
       params: {}, <span class="tips">// 请求时传递给接口的参数，选填</span>\n
       prefix: 'callback', <span class="tips">// 回调函数名，默认__c，选填</span>\n
-    }, function(res) { \n
+    }, function(res) { <span class="tips">// 成功回调</span>\n
       console.log(res); \n
+    }, function(err) { <span class="tips">// 错误回调</span>\n
+      console.log(err) \n
     }) \n
   </pre>`,
   list: [
