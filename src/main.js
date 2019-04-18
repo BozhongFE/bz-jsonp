@@ -1,4 +1,4 @@
-export default ({ params = {}, url = '', prefix = '__c' } = {}, callback, error) => {
+const BzJsonp = ({ params = {}, url = '', prefix = '__c' } = {}, callback, error) => {
   try {
     if (!url) return error && error('url无效');
     const callbackName = `jsonp_${Date.now()}`;
@@ -39,3 +39,5 @@ export default ({ params = {}, url = '', prefix = '__c' } = {}, callback, error)
     return error && error(err);
   }
 };
+
+export default BzJsonp;

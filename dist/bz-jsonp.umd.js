@@ -5,7 +5,7 @@
   (global = global || self, factory(global.bzBlock = {}));
 }(this, function (exports) { 'use strict';
 
-  var main = (function () {
+  var BzJsonp = function BzJsonp() {
     var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
         _ref$params = _ref.params,
         params = _ref$params === void 0 ? {} : _ref$params,
@@ -60,9 +60,9 @@
     } catch (err) {
       return error && error(err);
     }
-  });
+  };
 
-  exports.default = main;
+  exports.default = BzJsonp;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

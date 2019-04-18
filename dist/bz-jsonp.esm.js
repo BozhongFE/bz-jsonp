@@ -1,5 +1,5 @@
 /* bz-jsonp version 2.0.0 */
-var main = ({ params = {}, url = '', prefix = '__c' } = {}, callback, error) => {
+const BzJsonp = ({ params = {}, url = '', prefix = '__c' } = {}, callback, error) => {
   try {
     if (!url) return error && error('url无效');
     const callbackName = `jsonp_${Date.now()}`;
@@ -41,4 +41,4 @@ var main = ({ params = {}, url = '', prefix = '__c' } = {}, callback, error) => 
   }
 };
 
-export default main;
+export default BzJsonp;
