@@ -11,6 +11,14 @@ export default [
       file: `./dist/${name}.esm.js`,
       format: 'esm',
     }),
+    plugins: [
+      ...baseConfig.plugins,
+      babel({
+        babelrc: false,
+        presets: [['@babel/preset-env', { modules: false }]],
+        exclude: 'node_modules/**',
+      }),
+    ],
   }),
   // umd
   Object.assign({}, baseConfig, {
