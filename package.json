@@ -21,7 +21,7 @@
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-uglify": "^6.0.2",
     "rollup-watch": "^4.3.1",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.5"
   },
   "scripts": {
     "dev": "rollup -c build/rollup.config.dev.js --watch",
